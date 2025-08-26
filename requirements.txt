@@ -1,0 +1,21 @@
+# Core GUI Framework
+PySide6>=6.5.0
+
+# DNS Operations
+dnspython>=2.4.0
+
+# HTTP Requests
+requests>=2.31.0
+
+# PDF Generation
+reportlab>=4.0.0
+
+# MSG File Support (Outlook format)
+extract-msg>=0.45.0
+
+# Development and Build Tools
+pyinstaller>=6.0.0
+
+# Optional: For enhanced features
+python-dateutil>=2.8.2
+pyperclip>=1.8.2  # For clipboard operations
