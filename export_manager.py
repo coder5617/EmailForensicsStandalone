@@ -207,20 +207,22 @@ class ExportManager:
         if result.relays:
             relay_data = [['Hop', 'Delay', 'From', 'Time']]
             for relay in result.relays[:15]:  # Limit to first 15 relays for PDF
-                from_text = relay['from'][:40] + '...' if len(relay['from']) > 40 else relay['from']
+                # Use Paragraph for 'from' to enable wrapping
+                from_paragraph = Paragraph(relay['from'], self.styles['Normal'])
                 relay_data.append([
                     str(relay['hop']),
                     f"{relay['delay']:.2f}s",
-                    from_text,
+                    from_paragraph,
                     relay['time']
                 ])
-            
-            relay_table = Table(relay_data, colWidths=[0.7*inch, 0.8*inch, 2.5*inch, 2*inch])
+            # Adjust column widths: give more space to 'From'
+            relay_table = Table(relay_data, colWidths=[0.7*inch, 0.8*inch, 3.5*inch, 1.5*inch])
             relay_table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
                 ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
                 ('ALIGN', (0, 0), (1, -1), 'CENTER'),
-                ('ALIGN', (2, 0), (-1, -1), 'LEFT'),
+                ('ALIGN', (2, 0), (2, -1), 'LEFT'),
+                ('ALIGN', (3, 0), (3, -1), 'LEFT'),
                 ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
                 ('FONTSIZE', (0, 0), (-1, -1), 9),
                 ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
@@ -228,13 +230,10 @@ class ExportManager:
                 ('GRID', (0, 0), (-1, -1), 1, colors.black),
                 ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f0f0f0')])
             ]))
-            
             elements.append(relay_table)
-            
             if len(result.relays) > 15:
                 elements.append(Spacer(1, 5))
-                elements.append(Paragraph(f"<i>... and {len(result.relays) - 15} more relay hops</i>", 
-                                        self.styles['Normal']))
+                elements.append(Paragraph(f"<i>... and {len(result.relays) - 15} more relay hops</i>", self.styles['Normal']))
         
         # DNS Records (on new page if they exist)
         if result.dmarc_txt or result.spf_txt or result.dkim_info:
