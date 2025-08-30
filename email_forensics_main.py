@@ -24,7 +24,7 @@ from PySide6.QtGui import QAction, QIcon, QFont, QColor, QPalette, QDragEnterEve
 from email_core import EmailAnalyzer, EmailParseResult
 from ip_lookup import IPLookupService
 from dns_lookup import DNSLookupService
-from config_manager import ConfigManager
+from config_manager import ConfigManager, ThemeManager
 from export_manager import ExportManager
 
 class AnalysisThread(QThread):
@@ -897,8 +897,14 @@ class EmailForensicsApp(QMainWindow):
     def apply_theme(self):
         """Apply the current theme"""
         app = QApplication.instance()
-        if self.config.get("dark_mode", True):
-            # Dark theme
+        theme_name = 'dark' if self.config.get("dark_mode", True) else 'light'
+        
+        # Apply theme stylesheet
+        stylesheet = ThemeManager.get_stylesheet(theme_name)
+        app.setStyleSheet(stylesheet)
+        
+        # Also set palette as fallback for widgets not covered by stylesheet
+        if theme_name == 'dark':
             dark_palette = QPalette()
             dark_palette.setColor(QPalette.Window, QColor(30, 30, 30))
             dark_palette.setColor(QPalette.WindowText, Qt.white)
@@ -915,7 +921,7 @@ class EmailForensicsApp(QMainWindow):
             dark_palette.setColor(QPalette.HighlightedText, Qt.black)
             app.setPalette(dark_palette)
         else:
-            # Light theme
+            # Light theme - reset to standard palette
             app.setPalette(app.style().standardPalette())
 
 def main():
