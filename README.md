@@ -1,6 +1,7 @@
 # Email Forensics Desktop Application
 
 A fully native desktop application for analyzing email headers, with no web dependencies, containers, or browser interfaces. This is a complete refactor of the original web-based Email Forensics tool into a standalone desktop application.
+<img width="1787" height="1268" alt="image" src="https://github.com/user-attachments/assets/0b739931-5c62-426d-a4d2-c3fac42e08fe" />
 
 ## 🚀 Key Features
 
