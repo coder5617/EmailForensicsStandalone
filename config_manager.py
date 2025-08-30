@@ -210,17 +210,17 @@ class ThemeManager:
             'selected_bg': '#404040'
         },
         'light': {
-            'window_bg': '#f5f5f5',
-            'widget_bg': '#ffffff',
-            'text_color': '#212121',
-            'text_secondary': '#757575',
-            'accent_color': '#ff9800',
-            'success_color': '#4caf50',
-            'error_color': '#f44336',
-            'warning_color': '#ff9800',
-            'border_color': '#e0e0e0',
-            'hover_bg': '#f0f0f0',
-            'selected_bg': '#e3f2fd'
+            'window_bg': '#f7f5f3',
+            'widget_bg': '#faf8f6',
+            'text_color': '#2d2d2d',
+            'text_secondary': '#6b6b6b',
+            'accent_color': '#d97706',
+            'success_color': '#16a34a',
+            'error_color': '#dc2626',
+            'warning_color': '#d97706',
+            'border_color': '#e5e1dd',
+            'hover_bg': '#f1ede8',
+            'selected_bg': '#e8dcc6'
         },
         'blue': {
             'window_bg': '#0d1117',
